@@ -5,27 +5,62 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Scanner;
 
 public class DBTest03 {
 
 	public static void main(String[] args) throws ClassNotFoundException, SQLException {
 		// 1.드라이버 등록
-		Class.forName("oracle.jdbc.driver.OracleDriver");
+		//Class.forName("oracle.jdbc.driver.OracleDriver");
 		//2. db 연결
-		Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","KH","KH");
+	
 		// 3.SQL 실행
-		Statement stmt =  con.createStatement();
-		ResultSet rs = stmt.executeQuery("SELECT * FROM EMPLOYEE WHERE EMP_NAME = '선동일'");
+		//ResultSet rs = stmt.executeQuery("SELECT * FROM EMPLOYEE WHERE EMP_NAME = '선동일'");
 		
-		// 4.결과 리턴
-		while(rs.next()) {
-			System.out.println(rs.getString("EMP_NO"));
+		Connection con = null;		
+		Statement stmt =  null;
+		
+		String driver = "oracle.jdbc.driver.OracleDriver";
+		String url = "jdbc:oracle:thin:@localhost:1521:xe";
+		String id = "KH";
+		String pw = "KH";
+		
+		//입력
+		int no = 0;
+		String name = null;
+		String nickname = null;
+		
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.print("번호입력: ");
+		no = sc.nextInt();
+		sc.nextLine();
+		System.out.print("이름입력: ");
+		name = sc.next();
+		System.out.print("닉네임입력: ");
+		nickname = sc.next();
+		
+		//INSERT INTO MYTEST VALUES(a,'a','a')
+		String sql = "INSERT INTO MYTEST VALUES("+no+",'"+name+"','"+nickname+"')";
+		System.out.println(sql);
+		
+		Class.forName(driver);
+		con = DriverManager.getConnection(url,id,pw);
+		stmt = con.createStatement();
+		int res = stmt.executeUpdate(sql);
+		
+		if(res>0) {
+			System.out.println("insert 성공");
+		}else {
+			System.out.println("insert 실패");
 		}
 		
-		//종료
-		rs.close();
 		stmt.close();
 		con.close();
+		sc.close();
+		
+		
+
 
 	}
 
