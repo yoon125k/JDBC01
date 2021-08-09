@@ -10,13 +10,7 @@ import java.util.Scanner;
 public class DBTest03 {
 
 	public static void main(String[] args) throws ClassNotFoundException, SQLException {
-		// 1.드라이버 등록
-		//Class.forName("oracle.jdbc.driver.OracleDriver");
-		//2. db 연결
-	
-		// 3.SQL 실행
-		//ResultSet rs = stmt.executeQuery("SELECT * FROM EMPLOYEE WHERE EMP_NAME = '선동일'");
-		
+
 		Connection con = null;		
 		Statement stmt =  null;
 		
