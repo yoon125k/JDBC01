@@ -74,4 +74,14 @@ public class JDBCTemplate {
 		}
 		
 	}
+	
+	public static void Commit(Connection con) {
+		try {
+			con.commit();
+			
+		}catch(SQLException e) {
+			System.out.println("commit 에러");
+			e.printStackTrace();
+		}
+	}
 }
